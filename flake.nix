@@ -12,22 +12,6 @@
       system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        dxvk-native = pkgs.stdenv.mkDerivation (finalAttrs: {
-          pname = "dxvk-native";
-          version = "2.7.1";
-
-          src = fetchTarball {
-            url = "https://github.com/doitsujin/dxvk/releases/download/v${finalAttrs.version}/dxvk-native-${finalAttrs.version}-steamrt-sniper.tar.gz";
-            sha256 = "sha256:0y7fg1pggychscgmw5j7vw1sckl8z2sz2vb1x4jgnj4sknqdmnmw";
-          };
-
-          installPhase = ''
-            mkdir -p $out
-            cp -r * $out/
-            mv $out/include/dxvk/* $out/include
-            rmdir $out/include/dxvk
-          '';
-        });
       in
       {
         formatter = pkgs.nixfmt-tree;
@@ -50,10 +34,17 @@
               ];
 
               buildInputs = [
-                dxvk-native
-                pkgs.nativefiledialog-extended
                 pkgs.gtk3
                 pkgs.imgui
+                pkgs.sdl3
+                pkgs.sdl3-image
+                pkgs.libGL
+                pkgs.libxkbcommon
+                pkgs.libx11
+                pkgs.libxcursor
+                pkgs.libxi
+                pkgs.libxrandr
+                pkgs.wayland
               ];
 
               shellHook = ''
