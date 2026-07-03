@@ -50,7 +50,6 @@
                 pkgs.libGLU
                 pkgs.libGLX
                 pkgs.libxext.out
-                pkgs.cmake
               ];
 
               LD_LIBRARY_PATH = nixpkgs.lib.makeLibraryPath buildInputs;
